@@ -1,8 +1,8 @@
 import 'i18next';
 
-import translation from '../public/locales/ru/translation.json'
 import auctions from '../public/locales/ru/auctions.json';
 import bets from '../public/locales/ru/bets.json';
+import translation from '../public/locales/ru/translation.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {

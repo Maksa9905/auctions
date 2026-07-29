@@ -1,3 +1,3 @@
-import AuctionDetailPage from './AuctionDetailPage'
+import AuctionDetailPage from './AuctionDetailPage';
 
-export default AuctionDetailPage
+export default AuctionDetailPage;

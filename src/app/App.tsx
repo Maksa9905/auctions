@@ -1,9 +1,9 @@
-import { Container, Theme } from "@radix-ui/themes";
-import { RouterProvider } from "@tanstack/react-router";
+import { Container, Theme } from '@radix-ui/themes';
+import { RouterProvider } from '@tanstack/react-router';
 
-import "@radix-ui/themes/styles.css";
+import { router } from '@app/router';
 
-import { router } from "@app/router";
+import '@radix-ui/themes/styles.css';
 
 function App() {
   return (

@@ -1,3 +1,3 @@
-import AuctionBetsPage from './AuctionBetsPage'
+import AuctionBetsPage from './AuctionBetsPage';
 
-export default AuctionBetsPage
+export default AuctionBetsPage;

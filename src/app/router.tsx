@@ -1,15 +1,16 @@
 import {
-  Outlet,
   createRootRoute,
   createRoute,
   createRouter,
+  Outlet,
   redirect,
-} from "@tanstack/react-router";
+} from '@tanstack/react-router';
 
-import AuctionBetsPage from "@pages/AuctionBetsPage";
-import AuctionDetailPage from "@pages/AuctionDetailPage";
-import AuctionsListPage from "@pages/AuctionsListPage";
-import { routes } from "@shared/routes";
+import AuctionBetsPage from '@pages/AuctionBetsPage';
+import AuctionDetailPage from '@pages/AuctionDetailPage';
+import AuctionsListPage from '@pages/AuctionsListPage';
+
+import { routes } from '@shared/routes';
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -17,7 +18,7 @@ const rootRoute = createRootRoute({
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/",
+  path: '/',
   beforeLoad: () => {
     throw redirect({ to: routes.auctions });
   },
@@ -50,7 +51,7 @@ const routeTree = rootRoute.addChildren([
 
 export const router = createRouter({ routeTree });
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
   }

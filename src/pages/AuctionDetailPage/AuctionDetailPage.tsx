@@ -1,5 +1,5 @@
-import { Heading, Text } from "@radix-ui/themes";
-import { useTranslation } from "react-i18next";
+import { Heading, Text } from '@radix-ui/themes';
+import { useTranslation } from 'react-i18next';
 
 export default function AuctionDetailPage() {
   const { t } = useTranslation('auctions');
