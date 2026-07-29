@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,5 +21,14 @@ export default defineConfig({
       '@entities': path.resolve(root, 'src/entities'),
       '@shared': path.resolve(root, 'src/shared'),
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    css: true,
+    restoreMocks: true,
+    clearMocks: true,
   },
 });

@@ -5,6 +5,7 @@ import i18next from 'eslint-plugin-i18next';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import vitest from '@vitest/eslint-plugin';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -58,7 +59,13 @@ export default defineConfig([
         },
       },
       'boundaries/include': ['src/**/*'],
-      'boundaries/ignore': ['src/**/*.d.ts', 'src/main.tsx', 'types/**/*'],
+      'boundaries/ignore': [
+        'src/**/*.d.ts',
+        'src/main.tsx',
+        'src/test/**',
+        'src/**/*.{test,spec}.{ts,tsx}',
+        'types/**/*',
+      ],
       'boundaries/elements': [
         { type: 'app', pattern: 'src/app' },
         { type: 'pages', pattern: 'src/pages/*', capture: ['slice'] },
@@ -120,6 +127,7 @@ export default defineConfig([
   },
   {
     files: ['src/**/*.{tsx,jsx}'],
+    ignores: ['src/**/*.{test,spec}.{ts,tsx}', 'src/test/**'],
     rules: {
       'i18next/no-literal-string': [
         'error',
@@ -134,6 +142,22 @@ export default defineConfig([
           message: 'Текст для пользователя должен быть локализован через t()/Trans',
         },
       ],
+    },
+  },
+  {
+    files: ['src/**/*.{test,spec}.{ts,tsx}', 'src/test/**/*.{ts,tsx}'],
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...vitest.environments.env.globals,
+      },
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+      'react-refresh/only-export-components': 'off',
     },
   },
   eslintConfigPrettier,
