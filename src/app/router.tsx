@@ -6,10 +6,10 @@ import {
   redirect,
 } from "@tanstack/react-router";
 
-import AuctionBetsPage from "../pages/AuctionBetsPage";
-import AuctionDetailPage from "../pages/AuctionDetailPage";
-import AuctionsListPage from "../pages/AuctionsListPage";
-import { routes } from "../shared/routes";
+import AuctionBetsPage from "@pages/AuctionBetsPage";
+import AuctionDetailPage from "@pages/AuctionDetailPage";
+import AuctionsListPage from "@pages/AuctionsListPage";
+import { routes } from "@shared/routes";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,

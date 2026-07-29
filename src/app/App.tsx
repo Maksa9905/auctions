@@ -3,7 +3,7 @@ import { RouterProvider } from "@tanstack/react-router";
 
 import "@radix-ui/themes/styles.css";
 
-import { router } from "./router";
+import { router } from "@app/router";
 
 function App() {
   return (
