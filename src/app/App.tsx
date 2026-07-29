@@ -1,6 +1,9 @@
-import { Heading, Theme } from "@radix-ui/themes";
+import { Container, Theme } from "@radix-ui/themes";
+import { RouterProvider } from "@tanstack/react-router";
 
 import "@radix-ui/themes/styles.css";
+
+import { router } from "./router";
 
 function App() {
   return (
@@ -13,9 +16,11 @@ function App() {
       panelBackground="solid"
       hasBackground
     >
-      <Heading as="h1">Hello World</Heading>
+      <Container size="3" py="6">
+        <RouterProvider router={router} />
+      </Container>
     </Theme>
-  )
+  );
 }
 
-export default App
+export default App;
