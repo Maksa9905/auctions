@@ -1,17 +1,16 @@
 import { Heading, Text } from "@radix-ui/themes";
-import { useParams } from "@tanstack/react-router";
-import { routes } from "../../shared/routes";
+import { useTranslation } from "react-i18next";
 
 export default function AuctionDetailPage() {
-  const { id } = useParams({ from: routes.auctionById('$id') });
+  const { t } = useTranslation('auctions');
 
   return (
     <>
       <Heading as="h1" size="8">
-        Аукцион {id}
+        {t('auction')}
       </Heading>
       <Text as="p" color="gray" mt="2">
-        Детальная страница аукциона
+        {t('auction')}
       </Text>
     </>
   );
