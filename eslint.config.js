@@ -34,7 +34,7 @@ const fsdLayerPolicies = [
 ];
 
 export default defineConfig([
-  globalIgnores(['dist', 'node_modules']),
+  globalIgnores(['dist', 'node_modules', 'src/shared/api/generated/**']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

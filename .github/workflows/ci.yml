@@ -32,6 +32,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate API client
+        run: pnpm api:generate
+
+      - name: Check generated API client is up to date
+        run: git diff --exit-code -- src/shared/api/generated
+
       - name: Lint
         run: pnpm lint
 

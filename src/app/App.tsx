@@ -1,25 +1,32 @@
 import { Container, Theme } from '@radix-ui/themes';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
+import { useState } from 'react';
 
+import { createQueryClient } from '@app/query-client';
 import { router } from '@app/router';
 
 import '@radix-ui/themes/styles.css';
 
 function App() {
+  const [queryClient] = useState(createQueryClient);
+
   return (
-    <Theme
-      appearance="inherit"
-      accentColor="tomato"
-      grayColor="mauve"
-      radius="large"
-      scaling="100%"
-      panelBackground="solid"
-      hasBackground
-    >
-      <Container size="3" py="6">
-        <RouterProvider router={router} />
-      </Container>
-    </Theme>
+    <QueryClientProvider client={queryClient}>
+      <Theme
+        appearance="inherit"
+        accentColor="tomato"
+        grayColor="mauve"
+        radius="large"
+        scaling="100%"
+        panelBackground="solid"
+        hasBackground
+      >
+        <Container size="3" py="6">
+          <RouterProvider router={router} />
+        </Container>
+      </Theme>
+    </QueryClientProvider>
   );
 }
 
