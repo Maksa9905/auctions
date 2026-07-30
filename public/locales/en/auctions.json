@@ -1,3 +1,51 @@
 {
-  "auction": "Аукцион"
+  "auctionsList": "Auctions",
+  "auctionType": {
+    "Request": "Request-based",
+    "Up": "Ascending",
+    "Down": "Descending",
+    "FixPrice": "Fixed price",
+    "Unknown": "Unknown type",
+    "undefined": "Type not selected"
+  },
+  "auctionStatus": {
+    "Planning": "Planning",
+    "Auction": "Auction in progress",
+    "DeterminateWinner": "Determining winner",
+    "WaitDeal": "Awaiting deal",
+    "InProgress": "In progress",
+    "Finished": "Finished",
+    "Stopped": "Stopped",
+    "Canceled": "Canceled",
+    "Unknown": "Unknown status",
+    "undefined": "Status not selected"
+  },
+  "tradingStatus": {
+    "NotParticipating": "Not participating",
+    "Leading": "Leading",
+    "Losing": "Outbid",
+    "Winner": "Winner",
+    "Confirmed": "Confirmed",
+    "Unknown": "Unknown status",
+    "undefined": "Status not selected"
+  },
+  "auctionsTable": {
+    "cargoNum": "Request number",
+    "auctionType": "Auction type",
+    "auctionStatus": "Auction status",
+    "tradingStatus": "User trading status",
+    "route": "Route",
+    "load": "Loading",
+    "unload": "Unloading",
+    "routeDates": "Dates",
+    "cargo": {
+      "title": "Cargo",
+      "weight": "Weight",
+      "volume": "Volume",
+      "bodyType": "Body type"
+    },
+    "currentPrice": "Current price",
+    "pricePerKm": "Price per km",
+    "bet": "Bet"
+  }
 }

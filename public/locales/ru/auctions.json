@@ -1,3 +1,46 @@
 {
-  "auction": "Auction"
+  "auctionsList": "Список аукционов",
+  "auctionType": {
+    "Request": "Заявочный",
+    "Up": "На повышение",
+    "Down": "На понижение",
+    "FixPrice": "Фиксированная цена",
+    "Unknown": "Неизвестный тип",
+    "undefined": "Тип не выбран"
+  },
+  "auctionStatus": {
+    "Planning": "Планирование",
+    "Auction": "Идут торги",
+    "DeterminateWinner": "Определение победителя",
+    "WaitDeal": "Ожидание сделки",
+    "InProgress": "В работе",
+    "Finished": "Завершён",
+    "Stopped": "Остановлен",
+    "Canceled": "Отменён",
+    "Unknown": "Неизвестный статус",
+    "undefined": "Статус не выбран"
+  },
+  "tradingStatus": {
+    "NotParticipating": "Не участвует",
+    "Leading": "Лидирует",
+    "Losing": "Перебит",
+    "Winner": "Победитель",
+    "Confirmed": "Подтверждён",
+    "Unknown": "Неизвестный статус",
+    "undefined": "Статус не выбран"
+  },
+  "auctionsTable": {
+    "cargoNum": "Номер заявки",
+    "auctionType": "Тип аукциона",
+    "auctionStatus": "Статус аукциона",
+    "tradingStatus": "Торговый статус пользователя",
+    "route": "Маршрут",
+    "load": "Погрузка",
+    "unload": "Разгрузка",
+    "routeDates": "Даты",
+    "cargo": { "title": "Груз", "weight": "Вес", "volume": "Объём", "bodyType": "Тип кузова" },
+    "currentPrice": "Текущая цена",
+    "pricePerKm": "Цена за км.",
+    "bet": "Ставка"
+  }
 }

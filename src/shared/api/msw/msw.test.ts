@@ -13,7 +13,7 @@ describe('MSW auctions API', () => {
       body: JSON.stringify({ page: 1, per_page: 10 }),
     });
 
-    expect(response.meta?.total).toBe(3);
+    expect(response.meta?.total).toBe(100);
     expect(response.data?.map((item) => item.main?.order_uid)).toEqual(
       expect.arrayContaining([
         MOCK_AUCTION_UUIDS.moscowSpb,

@@ -14,7 +14,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Theme
-        appearance="inherit"
+        appearance="light"
         accentColor="tomato"
         grayColor="mauve"
         radius="large"
@@ -22,7 +22,7 @@ function App() {
         panelBackground="solid"
         hasBackground
       >
-        <Container size="3" py="6">
+        <Container size="4" py="6" px="6">
           <RouterProvider router={router} />
         </Container>
       </Theme>

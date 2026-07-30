@@ -1,0 +1,42 @@
+.Root {
+  --table-border-radius: var(--radius-4);
+  --table-cell-padding: var(--space-3);
+  --table-cell-min-height: calc(44px * var(--scaling));
+
+  max-height: min(70vh, 720px);
+  overflow: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--gray-a5);
+  border-radius: var(--table-border-radius);
+  background-color: var(--color-panel-solid);
+}
+
+.Table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: visible;
+}
+
+.Header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.Header :global(th) {
+  background-color: var(--color-panel-solid);
+}
+
+.AuctionsTableRow {
+  --table-row-box-shadow: inset -1px -1px var(--gray-a5);
+}
+
+.WhiteSpaceNoWrap {
+  white-space: nowrap;
+}
+
+.SpacerCell {
+  padding: 0;
+  border: none;
+}

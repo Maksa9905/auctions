@@ -12,6 +12,8 @@ import { OperationType } from '../generated/model/operationType';
 import { PaymentDelayType } from '../generated/model/paymentDelayType';
 import { TradingStatus } from '../generated/model/tradingStatus';
 
+import initialAuctions from './initial-auctions.json';
+
 export const MOCK_AUCTION_UUIDS = {
   moscowSpb: '550e8400-e29b-41d4-a716-446655440001',
   kazanSamara: '550e8400-e29b-41d4-a716-446655440002',
@@ -25,6 +27,22 @@ export type MockAuctionRecord = {
   bets: BetItem[];
 };
 
+type AuctionSeed = {
+  id: number;
+  uuid: string;
+  cargoNum: string;
+  loadCity: string;
+  unloadCity: string;
+  currentPrice: number;
+  status: keyof typeof AuctionStatus;
+  canSetBet: boolean;
+  aucType?: keyof typeof AuctionType;
+  cargoName?: string;
+  weight?: number;
+  volume?: number;
+  bodyType?: string;
+};
+
 const nowIso = () => new Date().toISOString();
 
 function createAuction({
@@ -36,16 +54,12 @@ function createAuction({
   currentPrice,
   status,
   canSetBet,
-}: {
-  id: number;
-  uuid: string;
-  cargoNum: string;
-  loadCity: string;
-  unloadCity: string;
-  currentPrice: number;
-  status: (typeof AuctionStatus)[keyof typeof AuctionStatus];
-  canSetBet: boolean;
-}): MockAuctionRecord {
+  aucType = 'Down',
+  cargoName = 'Паллеты',
+  weight = 18,
+  volume = 60,
+  bodyType = 'тент',
+}: AuctionSeed): MockAuctionRecord {
   const createdAt = nowIso();
   const startTime = createdAt;
   const stopTime = new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString();
@@ -54,6 +68,11 @@ function createAuction({
   const listStatus =
     AuctionListItemTradingStatus[status as keyof typeof AuctionListItemTradingStatus] ??
     AuctionListItemTradingStatus.Unknown;
+  const listAucType =
+    AuctionListItemMainAucType[aucType as keyof typeof AuctionListItemMainAucType] ??
+    AuctionListItemMainAucType.Down;
+  const detailAucType = AuctionType[aucType] ?? AuctionType.Down;
+  const detailStatus = AuctionStatus[status] ?? AuctionStatus.Unknown;
 
   return {
     uuid,
@@ -62,7 +81,7 @@ function createAuction({
         id,
         cargo_num: cargoNum,
         cargo_date: createdAt,
-        auc_type: AuctionListItemMainAucType.Down,
+        auc_type: listAucType,
         order_uid: uuid,
         created_at: createdAt,
         priority_sort: id,
@@ -94,10 +113,10 @@ function createAuction({
         },
       },
       cargo: {
-        name: 'Паллеты',
-        weight: 18,
-        volume: 60,
-        body_type: 'тент',
+        name: cargoName,
+        weight,
+        volume,
+        body_type: bodyType,
         truck_count: 1,
         is_cargo: true,
         is_international: false,
@@ -144,7 +163,7 @@ function createAuction({
         cargo_num: cargoNum,
         cargo_date: createdAt,
         order_uid: uuid,
-        auc_type: AuctionType.Down,
+        auc_type: detailAucType,
         created_at: createdAt,
       },
       organizer: {
@@ -169,11 +188,11 @@ function createAuction({
         is_international: false,
         distance: 700,
         truck_count: 1,
-        body_type: 'тент',
+        body_type: bodyType,
         containered: false,
       },
       trading: {
-        status,
+        status: detailStatus,
         status_mobile: TradingStatus.NotParticipating,
         start_time: startTime,
         stop_time: stopTime,
@@ -280,36 +299,5 @@ function createAuction({
 }
 
 export function createInitialAuctions(): MockAuctionRecord[] {
-  return [
-    createAuction({
-      id: 101,
-      uuid: MOCK_AUCTION_UUIDS.moscowSpb,
-      cargoNum: 'A-1001',
-      loadCity: 'Москва',
-      unloadCity: 'Санкт-Петербург',
-      currentPrice: 120_000,
-      status: AuctionStatus.Auction,
-      canSetBet: true,
-    }),
-    createAuction({
-      id: 102,
-      uuid: MOCK_AUCTION_UUIDS.kazanSamara,
-      cargoNum: 'A-1002',
-      loadCity: 'Казань',
-      unloadCity: 'Самара',
-      currentPrice: 85_000,
-      status: AuctionStatus.Auction,
-      canSetBet: true,
-    }),
-    createAuction({
-      id: 103,
-      uuid: MOCK_AUCTION_UUIDS.finished,
-      cargoNum: 'A-1003',
-      loadCity: 'Екатеринбург',
-      unloadCity: 'Челябинск',
-      currentPrice: 60_000,
-      status: AuctionStatus.Finished,
-      canSetBet: false,
-    }),
-  ];
+  return (initialAuctions as AuctionSeed[]).map(createAuction);
 }
