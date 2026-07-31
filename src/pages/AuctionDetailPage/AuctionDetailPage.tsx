@@ -1,17 +1,12 @@
-import { Heading, Text } from '@radix-ui/themes';
 import { useTranslation } from 'react-i18next';
 
 export default function AuctionDetailPage() {
   const { t } = useTranslation('auctions');
 
   return (
-    <>
-      <Heading as="h1" size="8">
-        {t('auction')}
-      </Heading>
-      <Text as="p" color="gray" mt="2">
-        {t('auction')}
-      </Text>
-    </>
+    <div className="flex flex-col gap-2">
+      <h1 className="text-3xl font-semibold tracking-tight">{t('auction')}</h1>
+      <p className="text-muted-foreground">{t('auction')}</p>
+    </div>
   );
 }

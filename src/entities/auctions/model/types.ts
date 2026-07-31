@@ -27,3 +27,10 @@ export interface AuctionsListItem {
   };
   bettedByMe: boolean;
 }
+
+export enum ECity {
+  MSK = 'Москва',
+  EKB = 'Екатеринбург',
+  OMSK = 'Омск',
+  SPB = 'Санкт-Петербург',
+}

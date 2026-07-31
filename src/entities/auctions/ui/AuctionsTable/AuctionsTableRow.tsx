@@ -1,6 +1,7 @@
-import { Table } from '@radix-ui/themes';
 import { forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { TableCell, TableRow } from '@/shared/ui/table';
 
 import type { AuctionsTableRowProps } from './interface';
 
@@ -11,29 +12,29 @@ const AuctionsTableRow = forwardRef<HTMLTableRowElement, AuctionsTableRowProps>(
     const { t } = useTranslation('translation');
 
     return (
-      <Table.Row ref={ref} className={styles.AuctionsTableRow} data-index={index}>
-        <Table.RowHeaderCell className={styles.WhiteSpaceNoWrap}>
-          {item.cargoNumber}
-        </Table.RowHeaderCell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.auctionType}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.auctionStatus}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.tradingStatus}</Table.Cell>
-        <Table.Cell width="350px">{`${item.route.load.city} · ${item.route.load.address}`}</Table.Cell>
-        <Table.Cell width="350px">
+      <TableRow ref={ref} data-index={index}>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.cargoNumber}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.auctionType}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.auctionStatus}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.tradingStatus}</TableCell>
+        <TableCell className="max-w-[350px] whitespace-normal">
+          {`${item.route.load.city} · ${item.route.load.address}`}
+        </TableCell>
+        <TableCell className="max-w-[350px] whitespace-normal">
           {`${item.route.unload.city} · ${item.route.unload.address}`}
-        </Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.route.load.date}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.route.unload.date}</Table.Cell>
-        <Table.Cell>{item.cargo.name}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.cargo.weight}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.cargo.volume}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.cargo.bodyType}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.price.currentPrice}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>{item.price.pricePerKm}</Table.Cell>
-        <Table.Cell className={styles.WhiteSpaceNoWrap}>
+        </TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.route.load.date}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.route.unload.date}</TableCell>
+        <TableCell className="whitespace-normal">{item.cargo.name}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.cargo.weight}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.cargo.volume}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.cargo.bodyType}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.price.currentPrice}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>{item.price.pricePerKm}</TableCell>
+        <TableCell className={styles.WhiteSpaceNoWrap}>
           {item.bettedByMe ? t('yes') : t('no')}
-        </Table.Cell>
-      </Table.Row>
+        </TableCell>
+      </TableRow>
     );
   },
 );

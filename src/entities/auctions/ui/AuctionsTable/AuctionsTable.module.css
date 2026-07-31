@@ -1,14 +1,10 @@
 .Root {
-  --table-border-radius: var(--radius-4);
-  --table-cell-padding: var(--space-3);
-  --table-cell-min-height: calc(44px * var(--scaling));
-
-  max-height: min(70vh, 720px);
+  height: calc(100dvh - 100px);
   overflow: auto;
   box-sizing: border-box;
-  border: 1px solid var(--gray-a5);
-  border-radius: var(--table-border-radius);
-  background-color: var(--color-panel-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--background);
 }
 
 .Table {
@@ -24,12 +20,8 @@
   z-index: 2;
 }
 
-.Header :global(th) {
-  background-color: var(--color-panel-solid);
-}
-
-.AuctionsTableRow {
-  --table-row-box-shadow: inset -1px -1px var(--gray-a5);
+.Header th {
+  background-color: var(--muted);
 }
 
 .WhiteSpaceNoWrap {

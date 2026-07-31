@@ -1,0 +1,31 @@
+.Root {
+  height: calc(100dvh - 100px);
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 420px) {
+  .Root {
+    height: calc(100dvh - 136px);
+  }
+}
+
+.Viewport {
+  position: relative;
+  width: 100%;
+}
+
+.Item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 0.75rem;
+  box-sizing: border-box;
+}
+
+.LoadingMore {
+  padding: 0.75rem 0.25rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}

@@ -1,5 +1,6 @@
 {
   "auctionsList": "Список аукционов",
+  "auction": "Аукцион",
   "auctionType": {
     "Request": "Заявочный",
     "Up": "На повышение",
@@ -41,6 +42,30 @@
     "cargo": { "title": "Груз", "weight": "Вес", "volume": "Объём", "bodyType": "Тип кузова" },
     "currentPrice": "Текущая цена",
     "pricePerKm": "Цена за км.",
-    "bet": "Ставка"
+    "bet": "Ставка",
+    "loadingMore": "Загрузка..."
+  },
+  "filters": {
+    "open": "Фильтры",
+    "title": "Фильтры аукционов",
+    "cargoNum": "Номер заявки",
+    "auctionStatuses": "Статус аукциона",
+    "tradingStatuses": "Торговый статус",
+    "auctionType": "Тип аукциона",
+    "loadCity": "Город погрузки",
+    "unloadCity": "Город разгрузки",
+    "loadDateFrom": "Дата погрузки от",
+    "loadDateTo": "Дата погрузки до",
+    "priceFrom": "Цена от",
+    "priceTo": "Цена до",
+    "isAvailable": "Доступные для ставки",
+    "isBigger": "Крупные грузы",
+    "apply": "Применить",
+    "errors": {
+      "invalidDate": "Введите дату в формате ДД.ММ.ГГГГ",
+      "invalidPrice": "Введите положительное число",
+      "dateRange": "Дата «до» не может быть раньше даты «от»",
+      "priceRange": "Цена «до» не может быть меньше цены «от»"
+    }
   }
 }

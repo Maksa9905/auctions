@@ -1,7 +1,10 @@
-import { Table } from '@radix-ui/themes';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { TableBody, TableHead, TableHeader, TableRow } from '@/shared/ui/table';
+
+import { useLoadMoreOnScroll } from '../../lib/useLoadMoreOnScroll';
 
 import AuctionsTableRow from './AuctionsTableRow';
 import type { AuctionsTableProps } from './interface';
@@ -12,7 +15,12 @@ const COLUMN_COUNT = 15;
 const ROW_ESTIMATE_SIZE = 52;
 const ROW_OVERSCAN = 8;
 
-export default function AuctionsTable({ data }: AuctionsTableProps) {
+export default function AuctionsTable({
+  data,
+  hasMore = false,
+  isLoadingMore = false,
+  onLoadMore,
+}: AuctionsTableProps) {
   const { t } = useTranslation('auctions');
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -30,56 +38,48 @@ export default function AuctionsTable({ data }: AuctionsTableProps) {
       ? rowVirtualizer.getTotalSize() - virtualRows[virtualRows.length - 1].end
       : 0;
 
+  useLoadMoreOnScroll({
+    lastVisibleIndex: virtualRows.at(-1)?.index,
+    itemsCount: data.length,
+    hasMore,
+    isLoadingMore,
+    onLoadMore,
+  });
+
   return (
     <div ref={scrollRef} className={styles.Root}>
-      <table className={`rt-TableRootTable ${styles.Table}`}>
-        <Table.Header className={`${styles.AuctionsTableRow} ${styles.Header}`}>
-          <Table.Row align="center">
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.cargoNum')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.auctionType')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.auctionStatus')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.tradingStatus')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell align="center" colSpan={2}>
+      <table className={styles.Table}>
+        <TableHeader className={styles.Header}>
+          <TableRow>
+            <TableHead rowSpan={2}>{t('auctionsTable.cargoNum')}</TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.auctionType')}</TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.auctionStatus')}</TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.tradingStatus')}</TableHead>
+            <TableHead className="text-center" colSpan={2}>
               {t('auctionsTable.route')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell align="center" colSpan={2}>
+            </TableHead>
+            <TableHead className="text-center" colSpan={2}>
               {t('auctionsTable.routeDates')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell align="center" colSpan={4}>
+            </TableHead>
+            <TableHead className="text-center" colSpan={4}>
               {t('auctionsTable.cargo.title')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.currentPrice')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>
-              {t('auctionsTable.pricePerKm')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell rowSpan={2}>{t('auctionsTable.bet')}</Table.ColumnHeaderCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.ColumnHeaderCell minWidth="200px">
-              {t('auctionsTable.load')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell minWidth="200px">
-              {t('auctionsTable.unload')}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.load')}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.unload')}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.cargo.title')}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.cargo.weight')}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.cargo.volume')}</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>{t('auctionsTable.cargo.bodyType')}</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+            </TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.currentPrice')}</TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.pricePerKm')}</TableHead>
+            <TableHead rowSpan={2}>{t('auctionsTable.bet')}</TableHead>
+          </TableRow>
+          <TableRow>
+            <TableHead className="min-w-50">{t('auctionsTable.load')}</TableHead>
+            <TableHead className="min-w-50">{t('auctionsTable.unload')}</TableHead>
+            <TableHead>{t('auctionsTable.load')}</TableHead>
+            <TableHead>{t('auctionsTable.unload')}</TableHead>
+            <TableHead>{t('auctionsTable.cargo.title')}</TableHead>
+            <TableHead>{t('auctionsTable.cargo.weight')}</TableHead>
+            <TableHead>{t('auctionsTable.cargo.volume')}</TableHead>
+            <TableHead>{t('auctionsTable.cargo.bodyType')}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {paddingTop > 0 && (
             <tr aria-hidden>
               <td
@@ -110,7 +110,14 @@ export default function AuctionsTable({ data }: AuctionsTableProps) {
               />
             </tr>
           )}
-        </Table.Body>
+          {isLoadingMore && (
+            <tr>
+              <td className="px-3 py-2 text-sm text-muted-foreground" colSpan={COLUMN_COUNT}>
+                {t('auctionsTable.loadingMore')}
+              </td>
+            </tr>
+          )}
+        </TableBody>
       </table>
     </div>
   );

@@ -1,5 +1,6 @@
 {
   "auctionsList": "Auctions",
+  "auction": "Auction",
   "auctionType": {
     "Request": "Request-based",
     "Up": "Ascending",
@@ -46,6 +47,30 @@
     },
     "currentPrice": "Current price",
     "pricePerKm": "Price per km",
-    "bet": "Bet"
+    "bet": "Bet",
+    "loadingMore": "Loading..."
+  },
+  "filters": {
+    "open": "Filters",
+    "title": "Auction filters",
+    "cargoNum": "Request number",
+    "auctionStatuses": "Auction status",
+    "tradingStatuses": "Trading status",
+    "auctionType": "Auction type",
+    "loadCity": "Loading city",
+    "unloadCity": "Unloading city",
+    "loadDateFrom": "Loading date from",
+    "loadDateTo": "Loading date to",
+    "priceFrom": "Price from",
+    "priceTo": "Price to",
+    "isAvailable": "Available for bidding",
+    "isBigger": "Large cargo",
+    "apply": "Apply",
+    "errors": {
+      "invalidDate": "Enter a date in DD.MM.YYYY format",
+      "invalidPrice": "Enter a positive number",
+      "dateRange": "The end date cannot be earlier than the start date",
+      "priceRange": "The max price cannot be less than the min price"
+    }
   }
 }
