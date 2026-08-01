@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# Auctions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Фронтенд списка и деталки аукционов (React + Vite + TypeScript) с локальным mock API.
 
-Currently, two official plugins are available:
+## Быстрый старт
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Нужны **Node.js 20+** и **pnpm**.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+pnpm install
+cp .env.example .env
+pnpm dev:mock
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Открой [http://localhost:5173](http://localhost:5173).  
+Vite проксирует `/api` → mock-server на порту `MOCK_PORT` (по умолчанию `3001`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+### Docker
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+cp .env.example .env
+docker compose up --build
 ```
+
+UI: [http://localhost:8080](http://localhost:8080)  
+Mock API: [http://localhost:3001](http://localhost:3001)
+
+## Полезные команды
+
+| Команда | Описание |
+| --- | --- |
+| `pnpm dev:mock` | frontend + mock-server |
+| `pnpm mock` | только mock-server |
+| `pnpm mock:reset` | mock-server с сбросом `db.json` |
+| `pnpm test` / `pnpm test:run` | тесты (watch / once) |
+| `pnpm lint` | ESLint |
+| `pnpm build` | production-сборка |
+
+## Env
+
+См. [`.env.example`](.env.example):
+
+- `VITE_API_BASE_URL` — база API на фронте (`/api/v1`)
+- `MOCK_PORT` — порт mock-server
+- `MOCK_DELAY_MS` — искусственная задержка ответов
+- `MOCK_ERROR_RATE` — доля случайных ошибок (`0`–`1`)
