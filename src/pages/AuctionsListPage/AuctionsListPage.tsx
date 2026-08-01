@@ -15,7 +15,6 @@ import {
   mapFiltersToParams,
   useAuctionsSearchQueryState,
 } from '@/features/auctions-searching';
-import { getAuction } from '@/shared/api';
 import { useMediaQuery } from '@/shared/lib/useMediaQuery';
 import { routes } from '@/shared/routes';
 

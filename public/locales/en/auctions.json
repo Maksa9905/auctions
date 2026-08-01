@@ -32,8 +32,11 @@
     "NotParticipating": "Not participating",
     "Leading": "Leading",
     "Losing": "Outbid",
-    "Winner": "Winner",
+    "OnPending": "Pending",
     "Confirmed": "Confirmed",
+    "ChoosingWinner": "Choosing winner",
+    "Winner": "Winner",
+    "Accepted": "Accepted",
     "Unknown": "Unknown status",
     "undefined": "Status not selected"
   },
@@ -56,6 +59,95 @@
     "pricePerKm": "Price per km",
     "bet": "Bet",
     "loadingMore": "Loading..."
+  },
+  "placeBet": {
+    "label": "Your bid",
+    "submit": "Place bid",
+    "bettingClosed": "Bidding is closed for this auction",
+    "hints": {
+      "available": "Available: {{value}}",
+      "range": "Range: {{min}} – {{max}}",
+      "step": "Step: {{value}}"
+    },
+    "errors": {
+      "required": "Enter a bid price",
+      "gtZero": "Price must be greater than 0",
+      "min": "Price cannot be below {{min}}",
+      "max": "Price cannot be above {{max}}",
+      "step": "Bid step must be a multiple of {{step}}"
+    },
+    "toasts": {
+      "success": "Bid placed successfully",
+      "error": "Failed to place bid",
+      "validationError": "Bid failed validation"
+    }
+  },
+  "detail": {
+    "backToList": "Back to list",
+    "states": {
+      "errorTitle": "Failed to load auction",
+      "errorDescription": "Check your connection and try again."
+    },
+    "route": {
+      "title": "Route",
+      "loading": "Loading",
+      "unloading": "Unloading",
+      "point": "Point"
+    },
+    "cargo": {
+      "title": "Cargo & vehicle",
+      "bodyType": "Body type",
+      "truckCount": "Vehicles",
+      "distance": "Distance, km",
+      "price": "Cargo price"
+    },
+    "payment": {
+      "title": "Payment terms",
+      "condition": "Condition",
+      "form": "Payment form",
+      "delay": "Delay"
+    },
+    "tradingParams": {
+      "title": "Trading parameters",
+      "start": "Start",
+      "stop": "End",
+      "prolong": "Prolongation, min",
+      "canSetBet": "Bidding allowed"
+    },
+    "organizer": {
+      "title": "Organizer",
+      "name": "Organization",
+      "inn": "TIN",
+      "contacts": "Contacts"
+    },
+    "tradingPanel": {
+      "title": "Trading",
+      "current": "Current price",
+      "available": "Available price",
+      "min": "Minimum",
+      "max": "Maximum",
+      "step": "Step",
+      "pricePerKm": "Per km",
+      "yourStatus": "Your status",
+      "yourLastBet": "Your last bid",
+      "noYourBet": "You have not placed a bid yet",
+      "placeBet": "Your bid",
+      "submitBet": "Place bid",
+      "bettingClosed": "Bidding is closed for this auction",
+      "betError": "Could not place the bid. Check the amount and step."
+    },
+    "bets": {
+      "title": "Bids",
+      "withVat": "With VAT",
+      "withoutVat": "Without VAT",
+      "participants": "Participants: {{count}}",
+      "empty": "No bids yet",
+      "hidden": "Bid history is hidden by the organizer",
+      "error": "Failed to load bids",
+      "winner": "Winner",
+      "cancelled": "Cancelled",
+      "place": "Place"
+    }
   },
   "filters": {
     "open": "Filters",

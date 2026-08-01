@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { createQueryClient } from '@app/query-client';
 import { router } from '@app/router';
 
+import { Toaster } from '@/shared/ui/sonner';
+
 import '@app/index.css';
 
 function App() {
@@ -14,9 +16,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NuqsAdapter>
-        <div className="mx-auto min-h-svh w-full max-w-360 px-6 py-6">
+        <div className="mx-auto min-h-svh w-full max-w-6xl px-6 py-6">
           <RouterProvider router={router} />
         </div>
+        <Toaster position="top-right" richColors closeButton />
       </NuqsAdapter>
     </QueryClientProvider>
   );
