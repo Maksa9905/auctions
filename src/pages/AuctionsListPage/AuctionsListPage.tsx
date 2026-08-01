@@ -1,23 +1,72 @@
-import { useMemo } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { AuctionsListTable, EAuctionsListTableViewType } from '@/entities/auctions';
+import {
+  AuctionsListTable,
+  EAuctionsListTableViewType,
+  useLazyGetAuctionsQuery,
+} from '@/entities/auctions';
 import {
   AuctionsFilters,
+  auctionsFiltersDefaultValues,
+  type AuctionsFiltersFormValues,
   AuctionsViewToggleButton,
-  mapFiltersToListRequest,
+  mapFiltersToParams,
   useAuctionsSearchQueryState,
 } from '@/features/auctions-searching';
+import { getAuction } from '@/shared/api';
 import { useMediaQuery } from '@/shared/lib/useMediaQuery';
+import { routes } from '@/shared/routes';
 
 export default function AuctionsListPage() {
   const { t } = useTranslation('auctions');
   const [query, setQuery] = useAuctionsSearchQueryState();
+
+  const prefetchAuction = useLazyGetAuctionsQuery();
+
+  const navigate = useNavigate();
+
   const { viewType, page, ...filters } = query;
 
-  const listRequest = useMemo(() => mapFiltersToListRequest(filters), [filters]);
+  const auctionsParams = useMemo(() => mapFiltersToParams(filters), [filters]);
 
   const isMobile = useMediaQuery('(max-width: 480px)');
+
+  const handleResetFilters = useCallback(() => {
+    setQuery({ ...auctionsFiltersDefaultValues, page: 1 });
+  }, [setQuery]);
+
+  const handleSubmitFilters = useCallback(
+    (values: AuctionsFiltersFormValues) => {
+      setQuery({ ...values, page: 1 });
+    },
+    [setQuery],
+  );
+
+  const handleChangePage = useCallback(
+    (nextPage: number) => {
+      setQuery({ page: nextPage });
+    },
+    [setQuery],
+  );
+
+  const handleSelectAuction = useCallback(
+    (id: string) => {
+      navigate({
+        to: routes.auctionById,
+        params: { id },
+      });
+    },
+    [navigate],
+  );
+
+  const handlePreloadAuction = useCallback(
+    async (id: string) => {
+      await prefetchAuction(id);
+    },
+    [prefetchAuction],
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -26,7 +75,8 @@ export default function AuctionsListPage() {
         <div className="flex gap-2">
           <AuctionsFilters
             values={filters}
-            onSubmit={(values) => void setQuery({ ...values, page: 1 })}
+            onSubmit={handleSubmitFilters}
+            onReset={handleResetFilters}
           />
           {!isMobile && (
             <AuctionsViewToggleButton
@@ -38,9 +88,11 @@ export default function AuctionsListPage() {
       </header>
       <AuctionsListTable
         viewType={isMobile ? EAuctionsListTableViewType.LIST : viewType}
-        request={listRequest}
+        params={auctionsParams}
         page={page}
-        onPageChange={(nextPage) => void setQuery({ page: nextPage })}
+        onPageChange={handleChangePage}
+        onClickItem={handleSelectAuction}
+        onHoverItem={handlePreloadAuction}
       />
     </div>
   );

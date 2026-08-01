@@ -12,6 +12,7 @@ export interface Cargo {
 }
 
 export interface AuctionsListItem {
+  id?: string;
   cargoNumber: string;
   auctionType: string;
   auctionStatus: string;

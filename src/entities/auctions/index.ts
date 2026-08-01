@@ -1,3 +1,4 @@
+export { useLazyGetAuctionsQuery } from './api/api';
 export { AUCTION_STATUS_CODES } from './lib/constants';
 export { useAuctionOptions } from './model/options';
 export { ECity } from './model/types';

@@ -1,6 +1,13 @@
 {
   "auctionsList": "Auctions",
   "auction": "Auction",
+  "states": {
+    "emptyTitle": "No auctions found",
+    "emptyDescription": "Try changing the filters or reset them and search again.",
+    "errorTitle": "Failed to load auctions",
+    "errorDescription": "Check your connection and try again.",
+    "retry": "Retry"
+  },
   "auctionType": {
     "Request": "Request-based",
     "Up": "Ascending",
@@ -66,6 +73,7 @@
     "isAvailable": "Available for bidding",
     "isBigger": "Large cargo",
     "apply": "Apply",
+    "reset": "Reset",
     "errors": {
       "invalidDate": "Enter a date in DD.MM.YYYY format",
       "invalidPrice": "Enter a positive number",

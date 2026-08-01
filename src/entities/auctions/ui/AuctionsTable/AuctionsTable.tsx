@@ -9,8 +9,6 @@ import { useLoadMoreOnScroll } from '../../lib/useLoadMoreOnScroll';
 import AuctionsTableRow from './AuctionsTableRow';
 import type { AuctionsTableProps } from './interface';
 
-import styles from './AuctionsTable.module.css';
-
 const COLUMN_COUNT = 15;
 const ROW_ESTIMATE_SIZE = 52;
 const ROW_OVERSCAN = 8;
@@ -20,6 +18,8 @@ export default function AuctionsTable({
   hasMore = false,
   isLoadingMore = false,
   onLoadMore,
+  onClickItem,
+  onHoverItem,
 }: AuctionsTableProps) {
   const { t } = useTranslation('auctions');
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -47,9 +47,12 @@ export default function AuctionsTable({
   });
 
   return (
-    <div ref={scrollRef} className={styles.Root}>
-      <table className={styles.Table}>
-        <TableHeader className={styles.Header}>
+    <div
+      ref={scrollRef}
+      className="box-border h-[calc(100dvh-100px)] overflow-auto rounded-lg border border-border bg-background"
+    >
+      <table className="w-full border-separate border-spacing-0 overflow-visible">
+        <TableHeader className="sticky top-0 z-2 [&_th]:bg-muted">
           <TableRow>
             <TableHead rowSpan={2}>{t('auctionsTable.cargoNum')}</TableHead>
             <TableHead rowSpan={2}>{t('auctionsTable.auctionType')}</TableHead>
@@ -82,11 +85,7 @@ export default function AuctionsTable({
         <TableBody>
           {paddingTop > 0 && (
             <tr aria-hidden>
-              <td
-                className={styles.SpacerCell}
-                colSpan={COLUMN_COUNT}
-                style={{ height: paddingTop }}
-              />
+              <td className="border-0 p-0" colSpan={COLUMN_COUNT} style={{ height: paddingTop }} />
             </tr>
           )}
           {virtualRows.map((virtualRow) => {
@@ -98,13 +97,15 @@ export default function AuctionsTable({
                 ref={rowVirtualizer.measureElement}
                 item={item}
                 index={virtualRow.index}
+                onClick={onClickItem}
+                onHover={onHoverItem}
               />
             );
           })}
           {paddingBottom > 0 && (
             <tr aria-hidden>
               <td
-                className={styles.SpacerCell}
+                className="border-0 p-0"
                 colSpan={COLUMN_COUNT}
                 style={{ height: paddingBottom }}
               />

@@ -5,7 +5,6 @@ import {
   Outlet,
   redirect,
 } from '@tanstack/react-router';
-import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
 
 import AuctionBetsPage from '@pages/AuctionBetsPage';
 import AuctionDetailPage from '@pages/AuctionDetailPage';
@@ -14,11 +13,7 @@ import AuctionsListPage from '@pages/AuctionsListPage';
 import { routes } from '@shared/routes';
 
 const rootRoute = createRootRoute({
-  component: () => (
-    <NuqsAdapter>
-      <Outlet />
-    </NuqsAdapter>
-  ),
+  component: () => <Outlet />,
 });
 
 const indexRoute = createRoute({
@@ -37,13 +32,13 @@ const auctionsRoute = createRoute({
 
 const auctionDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: routes.auctionById('$id'),
+  path: routes.auctionById,
   component: AuctionDetailPage,
 });
 
 const auctionBetsRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: routes.auctionBets('$id'),
+  path: routes.auctionBets,
   component: AuctionBetsPage,
 });
 

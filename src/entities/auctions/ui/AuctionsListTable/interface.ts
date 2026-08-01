@@ -7,7 +7,9 @@ export enum EAuctionsListTableViewType {
 
 export interface AuctionsListTableProps {
   viewType: EAuctionsListTableViewType;
-  request: Omit<AuctionListRequest, 'page' | 'per_page'>;
+  params: Omit<AuctionListRequest, 'page' | 'per_page'>;
   page: number;
   onPageChange: (page: number) => void;
+  onClickItem?: (id: string) => void;
+  onHoverItem?: (id: string) => void;
 }

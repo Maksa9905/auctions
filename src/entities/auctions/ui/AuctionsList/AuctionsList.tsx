@@ -1,63 +1,83 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { chunkByColumns } from '../../lib/chunkByColumns';
+import { useAuctionsListColumnCount } from '../../lib/useAuctionsListColumnCount';
 import { useLoadMoreOnScroll } from '../../lib/useLoadMoreOnScroll';
-import AuctionsListItem from '../AuctionsListItem';
+import AuctionsListRow from '../AuctionsListRow';
 
 import type { AuctionsListProps } from './interface';
 
-import styles from './AuctionsList.module.css';
-
-const ITEM_ESTIMATE_SIZE = 220;
-const ITEM_OVERSCAN = 4;
+const ROW_ESTIMATE_SIZE = 188;
+const ROW_OVERSCAN = 3;
 
 export default function AuctionsList({
   data,
   hasMore = false,
   isLoadingMore = false,
   onLoadMore,
+  onClickItem,
+  onHoverItem,
 }: AuctionsListProps) {
   const { t } = useTranslation('auctions');
   const scrollRef = useRef<HTMLDivElement>(null);
+  const columns = useAuctionsListColumnCount();
+  const rows = useMemo(() => chunkByColumns(data, columns), [columns, data]);
 
   const rowVirtualizer = useVirtualizer({
-    count: data.length,
+    count: rows.length,
     getScrollElement: () => scrollRef.current,
-    estimateSize: () => ITEM_ESTIMATE_SIZE,
-    overscan: ITEM_OVERSCAN,
+    estimateSize: () => ROW_ESTIMATE_SIZE,
+    overscan: ROW_OVERSCAN,
   });
 
-  const virtualItems = rowVirtualizer.getVirtualItems();
+  const virtualRows = rowVirtualizer.getVirtualItems();
 
   useLoadMoreOnScroll({
-    lastVisibleIndex: virtualItems.at(-1)?.index,
-    itemsCount: data.length,
+    lastVisibleIndex: virtualRows.at(-1)?.index,
+    itemsCount: rows.length,
     hasMore,
     isLoadingMore,
     onLoadMore,
   });
 
   return (
-    <div ref={scrollRef} className={styles.Root}>
-      <div className={styles.Viewport} style={{ height: rowVirtualizer.getTotalSize() }}>
-        {virtualItems.map((virtualItem) => {
-          const item = data[virtualItem.index];
+    <div
+      ref={scrollRef}
+      className="box-border h-[calc(100dvh-100px)] overflow-auto max-[420px]:h-[calc(100dvh-136px)]"
+    >
+      <div
+        key={columns}
+        className="relative w-full"
+        style={{ height: rowVirtualizer.getTotalSize() }}
+      >
+        {virtualRows.map((virtualRow) => {
+          const rowItems = rows[virtualRow.index];
 
           return (
             <div
-              key={item.cargoNumber}
+              key={rowItems.map((item) => item.cargoNumber).join('-')}
               ref={rowVirtualizer.measureElement}
-              data-index={virtualItem.index}
-              className={styles.Item}
-              style={{ transform: `translateY(${virtualItem.start}px)` }}
+              data-index={virtualRow.index}
+              className="absolute top-0 left-0 box-border w-full pb-3"
+              style={{ transform: `translateY(${virtualRow.start}px)` }}
             >
-              <AuctionsListItem item={item} />
+              <AuctionsListRow
+                onHoverItem={onHoverItem}
+                onClickItem={onClickItem}
+                items={rowItems}
+                columns={columns}
+              />
             </div>
           );
         })}
       </div>
-      {isLoadingMore && <div className={styles.LoadingMore}>{t('auctionsTable.loadingMore')}</div>}
+      {isLoadingMore && (
+        <div className="px-1 py-3 text-sm text-muted-foreground">
+          {t('auctionsTable.loadingMore')}
+        </div>
+      )}
     </div>
   );
 }

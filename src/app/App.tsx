@@ -1,5 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
+import { NuqsAdapter } from 'nuqs/adapters/tanstack-router';
 import { useState } from 'react';
 
 import { createQueryClient } from '@app/query-client';
@@ -12,9 +13,11 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="mx-auto min-h-svh w-full max-w-6xl px-6 py-6">
-        <RouterProvider router={router} />
-      </div>
+      <NuqsAdapter>
+        <div className="mx-auto min-h-svh w-full max-w-360 px-6 py-6">
+          <RouterProvider router={router} />
+        </div>
+      </NuqsAdapter>
     </QueryClientProvider>
   );
 }

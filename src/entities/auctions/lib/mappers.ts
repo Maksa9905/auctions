@@ -26,6 +26,7 @@ export function useGetAuctionMappers() {
   const mapAuctionItem = useCallback(
     (api: ApiAuctionListItem): AuctionsListItem => {
       return {
+        id: api.main?.order_uid,
         cargoNumber: api.main?.cargo_num || t('translation:notSpecified'),
         auctionType: api.main?.auc_type
           ? t(`auctions:auctionType.${api.main.auc_type}`)
