@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
       globals: true,
       environment: 'happy-dom',
       setupFiles: ['./src/test/setup.ts'],
-      include: ['src/**/*.{test,spec}.{ts,tsx}'],
+      include: ['src/**/*.{test,spec}.{ts,tsx}', 'mock-server/**/*.{test,spec}.ts'],
       css: true,
       restoreMocks: true,
       clearMocks: true,

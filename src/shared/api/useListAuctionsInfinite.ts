@@ -26,6 +26,23 @@ export function getLoadedStandardPages(pages: AuctionListResponseBase[] | undefi
   return Math.ceil(loadedItems / LIST_AUCTIONS_PER_PAGE);
 }
 
+export function getNextPageParam(
+  lastPage: AuctionListResponseBase,
+  allPages: AuctionListResponseBase[],
+): ListPageParam | undefined {
+  const total = lastPage.meta?.total ?? 0;
+  const loadedItems = getLoadedItemsCount(allPages);
+
+  if (loadedItems >= total) {
+    return undefined;
+  }
+
+  return {
+    page: Math.floor(loadedItems / LIST_AUCTIONS_PER_PAGE) + 1,
+    perPage: LIST_AUCTIONS_PER_PAGE,
+  };
+}
+
 export function useListAuctionsInfinite(
   request: Omit<AuctionListRequest, 'page' | 'per_page'>,
   page: number,
@@ -47,19 +64,7 @@ export function useListAuctionsInfinite(
         },
         { signal },
       ),
-    getNextPageParam: (lastPage, allPages): ListPageParam | undefined => {
-      const total = lastPage.meta?.total ?? 0;
-      const loadedItems = getLoadedItemsCount(allPages);
-
-      if (loadedItems >= total) {
-        return undefined;
-      }
-
-      return {
-        page: Math.floor(loadedItems / LIST_AUCTIONS_PER_PAGE) + 1,
-        perPage: LIST_AUCTIONS_PER_PAGE,
-      };
-    },
+    getNextPageParam,
   });
 
   const loadedStandardPages = getLoadedStandardPages(query.data?.pages);

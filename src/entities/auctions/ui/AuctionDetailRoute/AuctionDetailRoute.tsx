@@ -33,7 +33,9 @@ export default function AuctionDetailRoute({
           <li key={`${point.row_num}-${index}`} className="relative flex gap-3 pb-4 last:pb-0">
             <div className="flex flex-col items-center">
               <span className="mt-1 size-2.5 shrink-0 rounded-full bg-primary" />
-              {index < routePoints.length - 1 && <span className="mt-1 w-px flex-1 bg-border" />}
+              {index < routePoints.length - 1 && (
+                <span className="mt-1 w-px flex-1 bg-border relative top-2" />
+              )}
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">

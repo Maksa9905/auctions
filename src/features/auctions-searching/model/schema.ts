@@ -18,8 +18,14 @@ function isEmptyPrice(value: string): boolean {
   return value.trim() === '';
 }
 
+function isValidOptionalPrice(value: string): boolean {
+  if (isEmptyPrice(value)) return true;
+  const price = Number(value);
+  return Number.isFinite(price) && price > 0;
+}
+
 export function createAuctionsFiltersSchema(t: TFunction<'auctions'>) {
-  const optionalPrice = z.string().refine((value) => isEmptyPrice(value), {
+  const optionalPrice = z.string().refine(isValidOptionalPrice, {
     message: t('filters.errors.invalidPrice'),
   });
 

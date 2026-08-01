@@ -11,7 +11,7 @@ export function usePlaceAuctionBetForm(constraints: PlaceAuctionBetConstraints =
   const schema = usePlayAuctionBetSchema(constraints);
 
   const defaultPrice = useMemo(() => {
-    if (available !== null) {
+    if (available != null) {
       return String(available);
     }
 

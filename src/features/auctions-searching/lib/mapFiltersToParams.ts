@@ -25,8 +25,8 @@ export function mapFiltersToParams(
       filters.auctionType && filters.auctionType !== AuctionType.Unknown
         ? [filters.auctionType as AuctionListRequestAucTypeItem]
         : undefined,
-    load_city: filters.loadCity?.trim(),
-    unload_city: filters.unloadCity?.trim(),
+    load_city: filters.loadCity?.trim() || undefined,
+    unload_city: filters.unloadCity?.trim() || undefined,
     load_date_from: filters.loadDateFrom?.startOf('day').toISOString(),
     load_date_to: filters.loadDateTo?.endOf('day').toISOString(),
     is_available: filters.isAvailable || undefined,
