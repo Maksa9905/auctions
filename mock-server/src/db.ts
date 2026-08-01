@@ -1,15 +1,19 @@
-import { AuctionListItemTradingStatus } from '../generated/model/auctionListItemTradingStatus';
-import { AuctionListItemTradingStatusMobile } from '../generated/model/auctionListItemTradingStatusMobile';
-import type { AuctionListRequest } from '../generated/model/auctionListRequest';
-import type { AuctionListResponseBase } from '../generated/model/auctionListResponseBase';
-import type { AuctionShowResponse } from '../generated/model/auctionShowResponse';
-import { AuctionStatus } from '../generated/model/auctionStatus';
-import type { BetItem } from '../generated/model/betItem';
-import type { BetListResponse } from '../generated/model/betListResponse';
-import type { SetBetRequest } from '../generated/model/setBetRequest';
-import { TradingStatus } from '../generated/model/tradingStatus';
+import { AuctionListItemTradingStatus } from '../../src/shared/api/generated/model/auctionListItemTradingStatus';
+import { AuctionListItemTradingStatusMobile } from '../../src/shared/api/generated/model/auctionListItemTradingStatusMobile';
+import { AuctionStatus } from '../../src/shared/api/generated/model/auctionStatus';
+import { TradingStatus } from '../../src/shared/api/generated/model/tradingStatus';
 
-import { createInitialAuctions, type MockAuctionRecord } from './fixtures';
+import { createInitialAuctions } from './fixtures';
+import type {
+  AuctionListRequest,
+  AuctionListResponseBase,
+  AuctionShowResponse,
+  AuctionsStoreState,
+  BetItem,
+  BetListResponse,
+  MockAuctionRecord,
+  SetBetRequest,
+} from './types';
 
 const CURRENT_USER = {
   subscriberId: 201,
@@ -20,15 +24,37 @@ const CURRENT_USER = {
   contactPhone: '+79007654321',
 } as const;
 
-let auctions: MockAuctionRecord[] = createInitialAuctions();
-let nextBetId = 1000;
+type PersistFn = () => void;
+
+function createDefaultState(): AuctionsStoreState {
+  return {
+    auctions: createInitialAuctions(),
+    nextBetId: 1000,
+  };
+}
+
+let state: AuctionsStoreState = createDefaultState();
+let onPersist: PersistFn | undefined;
+
+export function initAuctionsStore(nextState: AuctionsStoreState, persist?: PersistFn) {
+  state = nextState;
+  onPersist = persist;
+}
+
+export function getAuctionsStoreState(): AuctionsStoreState {
+  return state;
+}
+
+function persist() {
+  onPersist?.();
+}
 
 function clone<T>(value: T): T {
   return structuredClone(value);
 }
 
 function findAuction(uuid: string): MockAuctionRecord | undefined {
-  return auctions.find((auction) => auction.uuid === uuid);
+  return state.auctions.find((auction) => auction.uuid === uuid);
 }
 
 function recalculatePlaces(bets: BetItem[]): void {
@@ -118,15 +144,15 @@ function syncAuctionPrices(auction: MockAuctionRecord): void {
 
 export const auctionsDb = {
   reset() {
-    auctions = createInitialAuctions();
-    nextBetId = 1000;
+    state = createDefaultState();
+    persist();
   },
 
   listAuctions(request: AuctionListRequest = {}): AuctionListResponseBase {
     const page = Math.max(1, request.page ?? 1);
     const perPage = Math.max(1, request.per_page ?? 10);
 
-    let items = auctions.map((auction) => clone(auction.listItem));
+    let items = state.auctions.map((auction) => clone(auction.listItem));
 
     if (request.cargo_num) {
       const query = request.cargo_num.toLowerCase();
@@ -302,7 +328,7 @@ export const auctionsDb = {
     }
 
     const bet: BetItem = {
-      id: nextBetId++,
+      id: state.nextBetId++,
       created_at: new Date().toISOString(),
       auction_id: auction.details.main.id,
       subscriber_id: CURRENT_USER.subscriberId,
@@ -331,6 +357,7 @@ export const auctionsDb = {
     auction.bets.push(bet);
     recalculatePlaces(auction.bets);
     syncAuctionPrices(auction);
+    persist();
 
     return { ok: true };
   },

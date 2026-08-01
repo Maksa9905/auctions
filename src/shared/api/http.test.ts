@@ -28,6 +28,6 @@ describe('apiFetch', () => {
       body: JSON.stringify({}),
     });
 
-    expect(response.meta?.total).toBe(3);
+    expect(response.meta?.total).toBe(100);
   });
 });

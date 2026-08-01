@@ -1,31 +1,22 @@
-import type { AuctionListItem } from '../generated/model/auctionListItem';
-import { AuctionListItemMainAucType } from '../generated/model/auctionListItemMainAucType';
-import { AuctionListItemTradingBidMeasurementType } from '../generated/model/auctionListItemTradingBidMeasurementType';
-import { AuctionListItemTradingStatus } from '../generated/model/auctionListItemTradingStatus';
-import { AuctionListItemTradingStatusMobile } from '../generated/model/auctionListItemTradingStatusMobile';
-import type { AuctionShowResponse } from '../generated/model/auctionShowResponse';
-import { AuctionStatus } from '../generated/model/auctionStatus';
-import { AuctionType } from '../generated/model/auctionType';
-import type { BetItem } from '../generated/model/betItem';
-import { BidMeasurementType } from '../generated/model/bidMeasurementType';
-import { OperationType } from '../generated/model/operationType';
-import { PaymentDelayType } from '../generated/model/paymentDelayType';
-import { TradingStatus } from '../generated/model/tradingStatus';
+import { AuctionListItemMainAucType } from '../../src/shared/api/generated/model/auctionListItemMainAucType';
+import { AuctionListItemTradingBidMeasurementType } from '../../src/shared/api/generated/model/auctionListItemTradingBidMeasurementType';
+import { AuctionListItemTradingStatus } from '../../src/shared/api/generated/model/auctionListItemTradingStatus';
+import { AuctionListItemTradingStatusMobile } from '../../src/shared/api/generated/model/auctionListItemTradingStatusMobile';
+import { AuctionStatus } from '../../src/shared/api/generated/model/auctionStatus';
+import { AuctionType } from '../../src/shared/api/generated/model/auctionType';
+import { BidMeasurementType } from '../../src/shared/api/generated/model/bidMeasurementType';
+import { OperationType } from '../../src/shared/api/generated/model/operationType';
+import { PaymentDelayType } from '../../src/shared/api/generated/model/paymentDelayType';
+import { TradingStatus } from '../../src/shared/api/generated/model/tradingStatus';
+import initialAuctions from '../data/initial-auctions.json';
 
-import initialAuctions from './initial-auctions.json';
+import type { MockAuctionRecord } from './types';
 
 export const MOCK_AUCTION_UUIDS = {
   moscowSpb: '550e8400-e29b-41d4-a716-446655440001',
   kazanSamara: '550e8400-e29b-41d4-a716-446655440002',
   finished: '550e8400-e29b-41d4-a716-446655440003',
 } as const;
-
-export type MockAuctionRecord = {
-  uuid: string;
-  listItem: AuctionListItem;
-  details: AuctionShowResponse;
-  bets: BetItem[];
-};
 
 type AuctionSeed = {
   id: number;

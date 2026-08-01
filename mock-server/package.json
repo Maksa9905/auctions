@@ -1,0 +1,23 @@
+{
+  "name": "mock-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "start:reset": "MOCK_RESET=true tsx src/server.ts"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "json-server": "0.17.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "tsx": "^4.23.1",
+    "typescript": "~6.0.2"
+  }
+}

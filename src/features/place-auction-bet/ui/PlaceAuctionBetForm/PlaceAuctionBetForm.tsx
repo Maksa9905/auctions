@@ -19,7 +19,11 @@ export default function PlaceAuctionBetForm({
   const mutation = usePlaceAuctionBetMutation(auctionUuid);
 
   if (!canSetBet) {
-    return <p className="text-xs text-muted-foreground">{t('placeBet.bettingClosed')}</p>;
+    return (
+      <form className="mt-4 flex flex-col gap-2">
+        <p className="text-xs text-muted-foreground">{t('placeBet.bettingClosed')}</p>
+      </form>
+    );
   }
 
   return (

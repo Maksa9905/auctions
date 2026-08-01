@@ -1,0 +1,3 @@
+packages:
+  - '.'
+  - 'mock-server'

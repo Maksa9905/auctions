@@ -64,7 +64,6 @@ export default defineConfig([
         'src/main.tsx',
         'src/test/**',
         'src/**/*.{test,spec}.{ts,tsx}',
-        'src/shared/api/msw/browser.ts',
         'src/shared/api/msw/server.ts',
         'types/**/*',
       ],

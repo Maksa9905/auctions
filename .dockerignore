@@ -1,0 +1,13 @@
+node_modules
+mock-server/node_modules
+mock-server/db.json
+dist
+dist-ssr
+.git
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage
+.cursor
