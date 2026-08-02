@@ -1,5 +1,7 @@
 # Auctions
 
+[![CI](https://github.com/Maksa9905/auctions/actions/workflows/ci.yml/badge.svg)](https://github.com/Maksa9905/auctions/actions/workflows/ci.yml)
+
 Фронтенд списка и деталки аукционов (React + Vite + TypeScript) с локальным mock API.
 
 ## Быстрый старт
