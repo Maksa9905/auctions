@@ -18,7 +18,7 @@ export default function AuctionsListItem({ item, onClick, onHover }: AuctionsLis
   return (
     <article
       onClick={handleClick}
-      onMouseEnter={handleHover}
+      onMouseMove={handleHover}
       className="rounded-lg border border-border bg-background px-3.5 py-3 transition-colors hover:border-primary/50 sm:px-4 sm:py-3.5 cursor-pointer"
     >
       <div className="flex items-start justify-between gap-3">
