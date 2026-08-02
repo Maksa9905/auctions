@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   AuctionsListTable,
   EAuctionsListTableViewType,
+  useLazyGetAuctionsBetQuery,
   useLazyGetAuctionsQuery,
 } from '@/entities/auctions';
 import {
@@ -23,6 +24,7 @@ export default function AuctionsListPage() {
   const [query, setQuery] = useAuctionsSearchQueryState();
 
   const prefetchAuction = useLazyGetAuctionsQuery();
+  const prefetchBets = useLazyGetAuctionsBetQuery();
 
   const navigate = useNavigate();
 
@@ -63,8 +65,9 @@ export default function AuctionsListPage() {
   const handlePreloadAuction = useCallback(
     async (id: string) => {
       await prefetchAuction(id);
+      await prefetchBets(id);
     },
-    [prefetchAuction],
+    [prefetchAuction, prefetchBets],
   );
 
   return (

@@ -2,13 +2,10 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  lazyRouteComponent,
   Outlet,
   redirect,
 } from '@tanstack/react-router';
-
-import AuctionBetsPage from '@pages/AuctionBetsPage';
-import AuctionDetailPage from '@pages/AuctionDetailPage';
-import AuctionsListPage from '@pages/AuctionsListPage';
 
 import { routes } from '@shared/routes';
 
@@ -27,29 +24,18 @@ const indexRoute = createRoute({
 const auctionsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: routes.auctions,
-  component: AuctionsListPage,
+  component: lazyRouteComponent(() => import('@pages/AuctionsListPage')),
 });
 
 const auctionDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: routes.auctionById,
-  component: AuctionDetailPage,
+  component: lazyRouteComponent(() => import('@pages/AuctionDetailPage')),
 });
 
-const auctionBetsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: routes.auctionBets,
-  component: AuctionBetsPage,
-});
+const routeTree = rootRoute.addChildren([indexRoute, auctionsRoute, auctionDetailRoute]);
 
-const routeTree = rootRoute.addChildren([
-  indexRoute,
-  auctionsRoute,
-  auctionDetailRoute,
-  auctionBetsRoute,
-]);
-
-export const router = createRouter({ routeTree });
+export const router = createRouter({ routeTree, defaultPreload: 'intent' });
 
 declare module '@tanstack/react-router' {
   interface Register {

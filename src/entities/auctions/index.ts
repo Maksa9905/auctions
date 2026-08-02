@@ -2,6 +2,7 @@ export {
   getAuctionQueryKey,
   useAuctionBetsQuery,
   useAuctionQuery,
+  useLazyGetAuctionsBetQuery,
   useLazyGetAuctionsQuery,
 } from './api/api';
 export { AUCTION_STATUS_CODES } from './lib/constants';

@@ -41,3 +41,11 @@ export function useLazyGetAuctionsQuery() {
     queryClient.prefetchQuery(getAuctionQueryOptions(id));
   };
 }
+
+export function useLazyGetAuctionsBetQuery() {
+  const queryClient = useQueryClient();
+
+  return (id: string) => {
+    queryClient.prefetchQuery(getAuctionBetsQueryOptions(id, true));
+  };
+}
