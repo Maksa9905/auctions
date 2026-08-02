@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import i18n, { type TFunction } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import auctionsRu from '../../public/locales/ru/auctions.json';
@@ -6,12 +6,12 @@ import translationRu from '../../public/locales/ru/translation.json';
 
 let initialized = false;
 
-export function createMockT(prefix = '') {
+export function createMockT(prefix = ''): TFunction<'auctions'> {
   return ((key: string, options?: Record<string, unknown>) => {
     const fullKey = prefix ? `${prefix}.${key}` : key;
     if (!options) return fullKey;
     return `${fullKey}:${JSON.stringify(options)}`;
-  }) as unknown as import('i18next').TFunction;
+  }) as unknown as TFunction<'auctions'>;
 }
 
 export async function ensureTestI18n() {
