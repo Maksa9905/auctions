@@ -24,6 +24,7 @@ export default function AuctionsTable({
   const { t } = useTranslation('auctions');
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     getScrollElement: () => scrollRef.current,

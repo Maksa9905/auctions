@@ -16,19 +16,19 @@ describe('createAuctionsFiltersSchema', () => {
 
   it('отклоняет невалидную цену', () => {
     const schema = createAuctionsFiltersSchema(t);
-    expect(
-      schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: 'abc' }).success,
-    ).toBe(false);
-    expect(
-      schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: '-1' }).success,
-    ).toBe(false);
+    expect(schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: 'abc' }).success).toBe(
+      false,
+    );
+    expect(schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: '-1' }).success).toBe(
+      false,
+    );
   });
 
   it('принимает валидную цену', () => {
     const schema = createAuctionsFiltersSchema(t);
-    expect(
-      schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: '1000' }).success,
-    ).toBe(true);
+    expect(schema.safeParse({ ...auctionsFiltersDefaultValues, priceFrom: '1000' }).success).toBe(
+      true,
+    );
   });
 
   it('проверяет date range', () => {
@@ -40,9 +40,7 @@ describe('createAuctionsFiltersSchema', () => {
     });
 
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues.some((issue) => issue.path.includes('loadDateTo'))).toBe(true);
-    }
+    expect(result.error?.issues.some((issue) => issue.path.includes('loadDateTo'))).toBe(true);
   });
 
   it('проверяет price range', () => {
@@ -54,8 +52,6 @@ describe('createAuctionsFiltersSchema', () => {
     });
 
     expect(result.success).toBe(false);
-    if (!result.success) {
-      expect(result.error.issues.some((issue) => issue.path.includes('priceTo'))).toBe(true);
-    }
+    expect(result.error?.issues.some((issue) => issue.path.includes('priceTo'))).toBe(true);
   });
 });

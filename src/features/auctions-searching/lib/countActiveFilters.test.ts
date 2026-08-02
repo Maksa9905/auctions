@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { AuctionStatus } from '@/shared/api';
 
 import { auctionsFiltersDefaultValues } from '../model/defaultValues';
+
 import { countActiveFilters } from './countActiveFilters';
 
 describe('countActiveFilters', () => {

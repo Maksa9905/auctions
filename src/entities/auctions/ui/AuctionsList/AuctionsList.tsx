@@ -25,6 +25,7 @@ export default function AuctionsList({
   const columns = useAuctionsListColumnCount();
   const rows = useMemo(() => chunkByColumns(data, columns), [columns, data]);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => scrollRef.current,
